@@ -8,6 +8,7 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "axios": "0.21.1",
     "react": "0.0.0-experimental-241c4467e",
     "react-dom": "0.0.0-experimental-241c4467e",
     "react-router": "6.0.0-alpha.1",

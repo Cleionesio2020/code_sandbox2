@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import api from "./services/Api";
 
 export default function Home() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    api
+      .get()
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+  }, []);
+
+  function handleDelete(id) {
+    if (window.confirm("Quer mesmo apaga este dado?")) {
+      setUsers(users.filter((u) => u.id !== id));
+    }
+  }
+
   return (
     <main>
+      <h3>Banco de horas - Cleionesio</h3>
+      <br />
       <table className="table">
         <thead>
           <tr>
@@ -14,39 +37,25 @@ export default function Home() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button type="button" className="btn btn-danger btn-sm">
-                Excluir
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>
-              <button type="button" className="btn btn-danger btn-sm">
-                Excluir
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>
-              <button type="button" className="btn btn-danger btn-sm">
-                Excluir
-              </button>
-            </td>
-          </tr>
+          {users.map((user) => {
+            return (
+              <tr key={user.id}>
+                <th scope="row">{user.id}</th>
+                <td>{user.name}</td>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </main>
