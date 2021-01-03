@@ -1,0 +1,12 @@
+.card-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+.card {
+  margin-top: 25%;
+  padding: 10px;
+  width: 350px;
+  display: inline-block !important;
+}
